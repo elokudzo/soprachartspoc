@@ -1,0 +1,83 @@
+
+<button (click)="addSheet();" class="button add">Add Chart</button>
+
+<div class="card card-1" *ngFor="let truc of list;">
+ 
+  <button (click)="removeSheet(truc.idFirefbase);" class="remove">X</button>
+  <app-toto [chart]="truc"></app-toto>
+  
+</div>
+<!-- <div class="card card-1"></div>
+<div class="card card-1"></div>
+<div class="card card-1"></div> -->
+
+<div class="col-md-4 mx-auto">
+<!--
+
+<div >
+    <canvas
+        baseChart
+        [chartType]="'line'"
+        [datasets]="chartData"
+        [labels]="chartLabels"
+        [options]="chartOptions"
+        [legend]="true"
+        (chartClick)="onChartClick($event)">
+    </canvas>
+  </div>
+
+  <div >
+      <canvas
+          baseChart
+          [chartType]="'line'"
+          [datasets]="chartData"
+          [labels]="chartLabels"
+          [options]="chartOptions"
+          [legend]="true"
+          (chartClick)="onChartClick($event)">
+      </canvas>
+    </div>
+
+  -->
+  
+<br><br>
+<!--
+<h1>Charts</h1>
+<br><br>
+
+          <button   (click)="transaction.expense =true" >
+          Depenser
+          </button>
+      &nbsp;&nbsp;
+          <button   (click)="transaction.expense =false" >
+              Economiser
+              </button>
+
+          <BR><BR>
+      
+            <label >Somme</label>&nbsp;&nbsp;
+            <input type="number" [(ngModel)]="transaction.value" />
+   <BR><BR>
+    
+      
+            <label>Mois</label>&nbsp;&nbsp;
+            <select [(ngModel)]="transaction.month">
+              <option [value]="month.value" *ngFor="let month of months">{{ month.name }}</option>
+            </select>
+          
+    <br><br>
+ 
+  
+     
+          <button   (click)="addTransaction()">Ajouter une transaction</button>
+        <Br><Br>-->
+    
+    
+
+   
+   
+    
+  
+
+
+</div>
