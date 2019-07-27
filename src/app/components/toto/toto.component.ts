@@ -53,9 +53,7 @@ export class TotoComponent implements OnInit {
     console.log("NEW TYPE : "+this.chart.data.toString);
 
     this.canvas = this.mychart.nativeElement;
-
     this.ctx = this.canvas.getContext('2d');
-    
     this.myChart.destroy();
     //this.canvas.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.myChart= new Chart(this.ctx,this.chart.data);
@@ -179,6 +177,7 @@ if(typedata === "country"){
 
 this.myChart.update();
     
+
   }
 
 }

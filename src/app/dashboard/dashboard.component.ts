@@ -83,10 +83,10 @@ public list: DisplayedChart[]=[];
 
  addSheet(){
   
- this.size=this.list.length+1;
- 
 
+  this.size=this.list.length+1;
   //console.log("ChartData[0] : " +this.chartData[1]);
+
   this.idfire="IDFIRE: "+this.size;
   this.datatest.item=this.idfire;
  this.newdata=this.datatest;
@@ -128,8 +128,6 @@ public removeSheet(x){
     }
 
   ngAfterViewInit(){
-
-    this.list = Array();
 
     this.ref = this.db.list('transactions', ref=> ref.orderByChild('month'));
 

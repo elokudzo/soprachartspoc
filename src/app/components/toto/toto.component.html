@@ -42,6 +42,7 @@
 
                             <input class="input" type="text" [(ngModel)] = "country"
                             (change)="updateChartFirebase('country', position, country )"
+
                           
                            value="{{country}}">
                       </th>
@@ -53,6 +54,7 @@
                       <td *ngFor="let pop of population; let position = index" >
                             <input class="input" type="text"   [(ngModel)] = "pop"
                             (change)="updateChartFirebase('population', position, pop  )"
+
                           
                            value="{{pop}}">
                            
