@@ -84,7 +84,7 @@ public list: DisplayedChart[]=[];
  addSheet(){
   
 
-  this.size=this.list.length+1;
+  this.size=this.list.length;
   //console.log("ChartData[0] : " +this.chartData[1]);
 
   this.idfire="IDFIRE: "+this.size;

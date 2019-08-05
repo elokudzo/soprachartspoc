@@ -30,10 +30,28 @@
   </div>
   
   <div *ngIf="showMainContent" class="sheetbox" style="overflow:auto;">
-
-
+<!-- code pour file upload a utiliser -->
+      <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />    
+      <table class="minimalistBlack" *ngIf="records.length > 0">    
+     
+        <tbody>    
+          <tr *ngFor="let record of records;let i = index;">    
+            <td> <span>{{record.id}}</span> </td>    
+            <td> <span>{{record.firstName}}</span> </td>    
+            <td> <span>{{record.lastName}}</span> </td>    
+            <td> <span>{{record.age}}</span> </td>    
+            <td> <span>{{record.position}}</span> </td>    
+            <td> <span>{{record.mobile}}</span> </td>    
+          </tr>    
+        </tbody>    
+      </table>     
+<!-- end code file upload -->
+      <br><br>
 
       <div class="bs-example" contenteditable="true"  >
+
+
+
          
           <table class="table">
               <thead>
