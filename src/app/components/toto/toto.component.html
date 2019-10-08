@@ -1,8 +1,17 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
  <div class="head">
-   <div style="display: inline-block;"><h2>{{chart.title}}</h2></div>
-     <div class="Wrapper">
+   <div style="display: inline-block;" *ngIf="!showMainContent"><h2>{{chart.title}}</h2></div>
+   <div style="display: inline-block;" *ngIf="showMainContent">
+      <input class="input" type="text"   [(ngModel)] = "chart.title"
+      (change)="updateTitleFirebase(chart.title)"
+
+    
+     value="{{chart.title}}">
+
+   </div>
+
+   <div class="Wrapper">
         <div class="button Button Button--start">
         <button (click)="ShowHideButton()"><i class="material-icons">create</i><span>Edit</span></button>
        </div>

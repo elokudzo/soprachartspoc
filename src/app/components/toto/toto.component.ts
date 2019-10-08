@@ -262,6 +262,18 @@ this.myChart.update();
 
   }
 
+
+  updateTitleFirebase(titlefire){
+    var updatedValue = {};
+updatedValue["item"] = titlefire;
+
+console.log(this.chart);
+
+this.db.database.ref('transactions/'+ this.chart.idFirefbase)
+.update(updatedValue);
+    console.log("title fire is " + titlefire);
+  }
+
 }
 
 
