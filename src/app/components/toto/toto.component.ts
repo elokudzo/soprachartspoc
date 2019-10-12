@@ -4,7 +4,6 @@ import { TotoService } from 'src/app/services/toto.service';
 import { DashboardComponent } from 'src/app/dashboard/dashboard.component';
 import {Chart} from 'chart.js';
 import {AngularFireDatabase, AngularFireList, snapshotChanges } from 'angularfire2/database';
-import { CSVRecord } from './CSVModel';
 import { isString } from 'util';
 
 
@@ -26,7 +25,8 @@ export class TotoComponent implements OnInit {
   title = 'Angular7-readCSV'; 
   public records: any[] = []; 
 
-  @ViewChild('csvReader',{static:false}) csvReader: any;  
+  @ViewChild('csvReader',{static:true}) csvReader: any;
+
 
   constructor( private db:AngularFireDatabase, private ngZone: NgZone) {}
   
@@ -72,7 +72,7 @@ export class TotoComponent implements OnInit {
    */
 
   uploadListener($event: any): void {  
-  
+
     let text = [];  
     let files = $event.srcElement.files;  
   
@@ -83,12 +83,40 @@ export class TotoComponent implements OnInit {
       reader.readAsText(input.files[0]);  
   
       reader.onload = () => {  
-        let csvData = reader.result;  
+        let csvData = reader.result;
+        
         let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);  
   
-        let headersRow = this.getHeaderArray(csvRecordsArray);  
-  
-        this.records = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, headersRow.length);  
+        let csvtitle = this.getHeaderArray(csvRecordsArray); 
+      
+        let csvValue = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, csvtitle.length);  
+
+        this.countries = csvtitle;
+        this.population = csvValue;
+     
+        console.log(this.countries);
+        console.log(this.population);
+    
+        var self = this;
+        this.countries.forEach(function (value, i) {
+          
+          self.updateChartFirebase("country", i, value)
+
+      });
+
+      this.population.forEach(function (value, i) {
+        self.updateChartFirebase("population", i, value)
+
+    });
+    this.fileReset($event);  
+        // for(var i = 0;i< this.countries.length;i++){
+        //   this.updateChartFirebase("country", i, this.countries[i])
+        // }
+
+        // for(var j = 0;j< this.population.length;j++){
+        //   this.updateChartFirebase("population", j, this.population[j])
+        // }
+        
       };  
   
       reader.onerror = function () {  
@@ -97,28 +125,29 @@ export class TotoComponent implements OnInit {
   
     } else {  
       alert("Please import valid .csv file.");  
-      this.fileReset();  
+      this.fileReset($event);  
     }  
+ 
   }  
   
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, headerLength: any) {  
     let csvArr = [];  
   
     for (let i = 1; i < csvRecordsArray.length; i++) {  
-      let curruntRecord = (<string>csvRecordsArray[i]).split(',');  
-      if (curruntRecord.length == headerLength) {  
-        let csvRecord: CSVRecord = new CSVRecord();  
-        csvRecord.id = curruntRecord[0].trim();  
-        console.log(csvRecord.id);
-        csvRecord.firstName = curruntRecord[1].trim();  
-        csvRecord.lastName = curruntRecord[2].trim();  
-        csvRecord.age = curruntRecord[3].trim();  
-        csvRecord.position = curruntRecord[4].trim();  
-        csvRecord.mobile = curruntRecord[5].trim();  
-        csvArr.push(csvRecord);  
-      }  
+      let curruntRecord = (<string>csvRecordsArray[i]).split(',');
+      
+      return curruntRecord;
+      // if (curruntRecord.length == headerLength) {  
+      //   let csvRecord = [];
+      //   csvRecord[i] = curruntRecord[0].trim();  
+      //   csvRecord.firstName = curruntRecord[1].trim();  
+      //   csvRecord.lastName = curruntRecord[2].trim();  
+      //   csvRecord.age = curruntRecord[3].trim();  
+      //   csvRecord.position = curruntRecord[4].trim();  
+      //   csvArr.push(csvRecord);  
+      // }  
     }  
-    return csvArr;  
+ //   return csvArr;  
   }  
   
   isValidCSVFile(file: any) {  
@@ -134,9 +163,11 @@ export class TotoComponent implements OnInit {
     return headerArray;  
   }  
   
-  fileReset() {  
-    this.csvReader.nativeElement.value = "";  
-    this.records = [];  
+  fileReset(event) { 
+    event.srcElement.value = null; 
+ //   document.getElementById("").value = "";
+   // this.csvReader.nativeElement.value = "";  
+   // this.records = [];  
   } 
 //end du code file upload
 
@@ -272,12 +303,10 @@ updatedValue[position] = value;
 
 if(typedata === "country"){
   this.myChart.data.labels[position] = value;
-  this.db.database.ref('transactions/'+ this.chart.idFirefbase + "/data/labels" )
-  .update(updatedValue);
+ this.db.database.ref('transactions/'+ this.chart.idFirefbase + "/data/labels" ).update(updatedValue);
 }else if (typedata === "population"){
   this.myChart.data.datasets[0].data[position] = value;
-  this.db.database.ref('transactions/'+ this.chart.idFirefbase + "/data/datasets/0/data" )
-  .update(updatedValue);
+ this.db.database.ref('transactions/'+ this.chart.idFirefbase + "/data/datasets/0/data" ).update(updatedValue);
 }
 
 this.myChart.update();

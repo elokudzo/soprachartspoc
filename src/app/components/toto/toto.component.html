@@ -40,9 +40,9 @@
   
   <div *ngIf="showMainContent" class="sheetbox" style="overflow:auto;">
 <!-- code pour file upload a utiliser -->
-      <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />    
+      <input type="file" #csvReader name="Upload CSV" id="csvReader" (onclick)="this.value = null" (change)="uploadListener($event)" accept=".csv"/>    
       <table class="minimalistBlack" *ngIf="records.length > 0">    
-     
+     ssdfsd
         <tbody>    
           <tr *ngFor="let record of records;let i = index;">    
             <td> <span>{{record.id}}</span> </td>    
