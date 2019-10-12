@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnChanges } from '@angular/core';
 import {Chart} from 'chart.js';
 import {AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs';
@@ -54,27 +54,31 @@ datatest ={
 };
 
 // ---------
-public list: DisplayedChart[]=[];
+public list:  DisplayedChart[]=[];
+isDataAvailable:boolean = false;
+
   valueBarsChart: any;
   chartData = null;
   newdata:any;
   result:any;
   idfire: string;
 
-  constructor( private db:AngularFireDatabase){}
+  constructor( private db:AngularFireDatabase){
+  }
 
  addSheet(){
   
 
   this.size=this.list.length + 1;
-  console.log("size is " + this.size);
+  //console.log("size is " + this.size);
   //console.log("ChartData[0] : " +this.chartData[1]);
 
-  this.idfire="TITRE "+this.size;
-  this.datatest.item=this.idfire;
+  var idfireItem="TITRE "+this.size;
+  this.idfire = this.generateID(10);
+  this.datatest.item=idfireItem;
  this.newdata={
   type: 'doughnut',
-  item:this.idfire,
+  item: idfireItem,
     data: {
       labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
       datasets: [
@@ -92,20 +96,28 @@ public list: DisplayedChart[]=[];
       }
     }
 };
- this.db.database.ref('transactions/'  + this.idfire ).set(this.newdata);
+var newPostRef = this.db.database.ref('transactions/' ).push(this.newdata);
   this.list.push(
     {
       firebaseUri: "aze",
-      idFirefbase: this.idfire,
+      idFirefbase: newPostRef.key,
       title: "Title "+ this.size,
       type: "bar",
       data:this.newdata,
-      labels:Object.keys(this.months).map(a => this.months[a].name)
+      labels:Object.keys(this.months).map(a => this.months[a].name),
     });
-    console.log(this.newdata);
   
-
    // this.ref.update(this.idfire,this.newdata);
+}
+
+ generateID(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
 
@@ -131,55 +143,104 @@ public removeSheet(x){
     
     }
 
+
   ngAfterViewInit(){
 
-    this.ref = this.db.list('transactions', ref=> ref.orderByChild('month'));
-    this.db.database.ref('transactions').once('value').then((snapchot)=>{
+    // this.db.database.ref('transactions').on('value', function(snapshot) {
+    //   console.log("listenning");
+    //   console.log(snapshot.val());
+
+      
+    //   var counter = 0;
+    //   for(var listdata in snapshot.val()){
+
+    //     console.log(snapshot.val()[listdata]);
+
+    //     this.list.push(
+    //       {
+    //       firebaseUri: "aze",
+    //       idFirefbase: snapshot.val()[listdata].item,
+    //       title:snapshot.val()[listdata].item,
+    //       type: "empty",
+    //       data: snapshot.val()[listdata],
+    //       labels:"Label "+ counter
+    //     }
+    //     );
+    //     counter++;
+      
+    //   }
+    // });
+
+  //  this.ref = this.db.list('transactions', ref=> ref.orderByChild('month'));
+    // this.db.database.ref('transactions').on('value',(snapchot)=>{
+
+    //   var counter = 0;
+    //   for(var listdata in snapchot.val()){
+
+    //     //console.log(snapchot.val()[listdata]);
+
+    //     this.list.push(
+    //       {
+    //       firebaseUri: "aze",
+    //       idFirefbase: snapchot.val()[listdata].item,
+    //       title:snapchot.val()[listdata].item,
+    //       type: "empty",
+    //       data: snapchot.val()[listdata],
+    //       labels:"Label "+ counter
+    //     }
+    //     );
+    //     counter++;
+      
+    //   }
+    //   console.log(this.list);
+    // });
+
+  }
+
+  ngOnInit() {
+  this.db.database.ref('transactions').once('value', (snapchot)=>{
 
       var counter = 0;
+    
       for(var listdata in snapchot.val()){
-
-        console.log(snapchot.val()[listdata]);
-
         this.list.push(
           {
           firebaseUri: "aze",
-          idFirefbase: snapchot.val()[listdata].item,
+          idFirefbase: listdata,
           title:snapchot.val()[listdata].item,
           type: "empty",
           data: snapchot.val()[listdata],
           labels:"Label "+ counter
+        
         }
         );
         counter++;
-      
       }
     });
-  }
 
-  ngOnInit() {
   }
   
-public updatelist(firelist){
-  console.log("firelist : "+firelist);
-   for(let chart in firelist){
-    console.log("CHart : "+firelist[chart]);
-    console.log("Result1 : "+this.result);
-    this.list.push(
-      {
-      firebaseUri: "aze",
-      idFirefbase: "aze"+this.size+"toto",
-      title: "Title "+ this.size,
-      type: "empty",
-      data: firelist[chart],
-      labels:"Label "+chart
-    }
-    );
-   }
-  
-   //this.list.push()
+// public updatelist(firelist){
+//   console.log("firelist : "+firelist);
+//    for(let chart in firelist){
+//     console.log("CHart : "+firelist[chart]);
+//     console.log("Result1 : "+this.result);
+//     this.list.push(
+//       {
+//       firebaseUri: "aze",
+//       idFirefbase: "aze"+this.size+"toto",
+//       title: "Title "+ this.size,
+//       type: "empty",
+//       data: firelist[chart],
+//       labels:"Label "+chart,
 
- }
+//     }
+//     );
+//    }
+  
+//    //this.list.push()
+
+//  }
 
 
 

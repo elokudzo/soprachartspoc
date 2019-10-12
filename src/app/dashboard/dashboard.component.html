@@ -1,11 +1,9 @@
 
 <button (click)="addSheet()" class="button add">Add Chart</button>
 
-<div class="card card-1" *ngFor="let truc of list;">
- 
+<div class="card card-1" *ngFor="let truc of list;" >
   <button (click)="removeSheet(truc.idFirefbase);" class="remove">X</button>
   <app-toto [chart]="truc"></app-toto>
-  
 </div>
 <!-- <div class="card card-1"></div>
 <div class="card card-1"></div>

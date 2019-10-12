@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, NgZone } from '@angular/core';
 import { DisplayedChart } from 'src/app/models/displayed-charts';
 import { TotoService } from 'src/app/services/toto.service';
 import { DashboardComponent } from 'src/app/dashboard/dashboard.component';
 import {Chart} from 'chart.js';
-import {AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import {AngularFireDatabase, AngularFireList, snapshotChanges } from 'angularfire2/database';
 import { CSVRecord } from './CSVModel';
+import { isString } from 'util';
 
 
 
@@ -27,7 +28,7 @@ export class TotoComponent implements OnInit {
 
   @ViewChild('csvReader',{static:false}) csvReader: any;  
 
-  constructor( private db:AngularFireDatabase) {}
+  constructor( private db:AngularFireDatabase, private ngZone: NgZone) {}
   
 
   showMainContent: Boolean = false;
@@ -146,12 +147,9 @@ export class TotoComponent implements OnInit {
   
   ngAfterViewInit() {
 
-
     
 
-    this.chartData=this.chart.data;
-    console.log("chart data is ");
-    console.log(this.chartData.data.labels);
+ this.chartData=this.chart.data;
 
  this.countries = this.chartData.data.labels;
  this.population =  this.chartData.data.datasets[0].data;
@@ -159,11 +157,28 @@ export class TotoComponent implements OnInit {
     this.canvas = this.mychart.nativeElement; 
     this.ctx = this.canvas.getContext('2d');
 
-   console.log("Chart Data ref : "+ this.chartData.type);
-
+ 
    this.myChart = new Chart(this.ctx, this.chartData);
-    console.log("chart item " + this.chartData["item"]);
+var self = this;
+    this.db.database.ref('transactions/'+ this.chart.idFirefbase ).on('child_changed',function(snapshot){
 
+  
+      self.ngZone.run(() => {
+
+        if(isString(snapshot.val())){
+          self.chart.title = snapshot.val();
+        }
+        else {
+          self.myChart.data.labels = snapshot.val().labels;
+          self.myChart.data.datasets[0].data = snapshot.val().datasets[0].data;
+          self.myChart.update();         
+          self.countries =  snapshot.val().labels;
+        self.population =  snapshot.val().datasets[0].data;
+        }
+      
+      });
+
+    });
     
     /**
      * la partie commentee ci-dessous va servir a mettre a jour continuellement le chart suivant le changement
@@ -211,7 +226,15 @@ export class TotoComponent implements OnInit {
     
   }
 
-  
+   isJSON(data) {
+    var ret = true;
+    try {
+       JSON.parse(data);
+    }catch(e) {
+       ret = false;
+    }
+    return ret;
+ }
 
   getUpdatedValues() {
     // let reportByMonth = {
@@ -243,7 +266,7 @@ export class TotoComponent implements OnInit {
   }
 
   updateChartFirebase(typedata, position, value){
-console.log("position is " + position);
+
 var updatedValue = {};
 updatedValue[position] = value;
 
@@ -258,16 +281,12 @@ if(typedata === "country"){
 }
 
 this.myChart.update();
-    
-
   }
 
 
   updateTitleFirebase(titlefire){
     var updatedValue = {};
 updatedValue["item"] = titlefire;
-
-console.log(this.chart);
 
 this.db.database.ref('transactions/'+ this.chart.idFirefbase)
 .update(updatedValue);
