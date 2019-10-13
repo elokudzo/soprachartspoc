@@ -1,6 +1,21 @@
-$red: #e74c3c;
-$green: #2ecc71;
-$grey: #ecded0;
+$red: #CF022B ;
+$red2: #960000  ;
+$orange:#EF7D00;
+$orange2:#F7A823 ;
+$orange3:#E14B0F; 
+$green: #2DAA64;
+$grey1: #ECEDED;
+$grey2:#7B7C7E ;
+$grey:rgb(179, 179, 180) ;
+$black: #222223;
+$violet:#8C2350;
+$bleu:#41738C;
+
+
+
+
+
+
 
 .button{
     box-sizing: border-box;
@@ -25,8 +40,29 @@ $grey: #ecded0;
   }
 
   .add{
-    color: $green;
-    border: 2px solid $green;
+    position:fixed;
+    width: 70px;
+   height: 70px;
+   background-color:#fff;
+   border-radius: 50%;
+   border: width 1;
+   border-color: $green;
+   border-style: solid;
+   
+   font-size: 50px;
+   font-family: sans-serif;
+   line-height: 70px;
+   color: $green;
+   text-align: center;
+   
+  
+   right: 50px;
+   bottom: 50px;
+   
+  transition: all 0.6s ease-in-out;
+
+
+    z-index:1000;
     &:hover {
       box-shadow: 0 0 40px 40px $green inset;
       color: #fff;
@@ -38,14 +74,13 @@ $grey: #ecded0;
     position: absolute;
     font-size: 12px;
     font-weight: bold;
-    left:-13px;
-    top:-13px;
     background-color: #fff;
     color:$grey;
     border: 2px solid $grey;
     border-radius: 50%;
     width: 25px;
     height: 25px;
+    z-index: 100;
     &:hover {
       box-shadow: 0 0 40px 40px $red inset;
       border: 2px solid $red;
@@ -54,3 +89,7 @@ $grey: #ecded0;
     }
   }
 
+  .profil{
+    background-color: transparent;
+    border: 0;
+  }

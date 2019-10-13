@@ -1,6 +1,7 @@
 .login-form {
     width: 340px;
     margin: 50px auto;
+    max-width:90%;
 }
 .login-form form {
     margin-bottom: 15px;
@@ -18,4 +19,51 @@
 .btn {        
     font-size: 15px;
     font-weight: bold;
+}
+.btn-primary{
+    background-color:   #7B7C7E   ;
+    
+    border-width:0px;
+    width: 60%;
+    margin-left:auto;
+    margin-right:auto;
+    float:left;
+}
+
+.title{
+    margin: 0 0 15px;
+    text-align:center;
+    font-weight: 600;
+}
+
+.fontlogin{
+    display: flex;
+    background: #CF022B;
+    width: 100%;
+    margin-left:auto;
+    margin-right:auto;
+    height:300px;
+    border-radius:0 0 60% 40% / 0 0 50% 20%
+ 
+}
+.padding{
+    display:inline-block;
+    width: 5%;
+    height:100%;
+    background: #fdfdfd;
+    margin:0;
+}
+.form{
+    display:inline-block;
+    width: 90%;
+}
+
+.orange{
+    display: flex;
+    background: #EF7D00 ;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius: 0 0 60% 40% / 0 0 30% 10%;
+    height:300px;
+    width: 60%;
 }

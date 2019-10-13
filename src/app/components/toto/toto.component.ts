@@ -22,6 +22,7 @@ export class TotoComponent implements OnInit {
   mychartData= null;
   countries:any;
   population:any;
+  divWitdth:any;
   title = 'Angular7-readCSV'; 
   public records: any[] = []; 
 
@@ -34,6 +35,10 @@ export class TotoComponent implements OnInit {
   showMainContent: Boolean = false;
   ShowHideButton() {
     this.showMainContent = this.showMainContent ? false : true;
+    if(this.showMainContent){
+      this.divWitdth=95;}else{
+        this.divWitdth=45;
+      }
 
  }
 
@@ -53,7 +58,7 @@ export class TotoComponent implements OnInit {
     this.ref = this.db.list('transactions', ref=> ref.orderByChild('month'));
     console.log("Update - OLD TYPE : "+ this.chart.type);
     console.log("Update - ID : "+ this.chart.idFirefbase);
-    this.chart.type=typ;
+    //this.chart.type=typ;
     this.chart.data.type=typ;
     this.ref.update(this.chart.idFirefbase,{type: typ});
     console.log("NEW TYPE : "+this.chart.data.toString);
@@ -178,7 +183,7 @@ export class TotoComponent implements OnInit {
   
   ngAfterViewInit() {
 
-    
+    console.log("ngAfterViewIntit Runed !!! ");
 
  this.chartData=this.chart.data;
 
@@ -197,7 +202,8 @@ var self = this;
       self.ngZone.run(() => {
 
         if(isString(snapshot.val())){
-          self.chart.title = snapshot.val();
+          //self.chart.title = snapshot.val();
+          console.log("self.chart.title = snapshot.val(); runned  here");
         }
         else {
           self.myChart.data.labels = snapshot.val().labels;
@@ -257,15 +263,6 @@ var self = this;
     
   }
 
-   isJSON(data) {
-    var ret = true;
-    try {
-       JSON.parse(data);
-    }catch(e) {
-       ret = false;
-    }
-    return ret;
- }
 
   getUpdatedValues() {
     // let reportByMonth = {

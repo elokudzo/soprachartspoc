@@ -1,7 +1,10 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+ 
+<div class="card card-1" [ngStyle]="{'width.%':divWitdth}">
+<div class="box">
  <div class="head">
-   <div style="display: inline-block;" *ngIf="!showMainContent"><h2>{{chart.title}}</h2></div>
+   <div style="display: inline-block;" *ngIf="!showMainContent"><h4>{{chart.title}}</h4></div>
    <div style="display: inline-block;" *ngIf="showMainContent">
       <input class="input" type="text"   [(ngModel)] = "chart.title"
       (change)="updateTitleFirebase(chart.title)"
@@ -13,7 +16,7 @@
 
    <div class="Wrapper">
         <div class="button Button Button--start">
-        <button (click)="ShowHideButton()"><i class="material-icons">create</i><span>Edit</span></button>
+        <button (click)="ShowHideButton()"><i class="material-icons">create</i><span></span></button>
        </div>
     </div>
   </div> 
@@ -22,25 +25,28 @@
     <div style="display: inline;">
       <!--Data 1D-->
       <button (click)="updateType('bar');" class="button1D"><img width="30" src="assets/images/bar.png"></button>
+      <button (click)="updateType('horizontalBar');"class="button1D"><img width="30" src="assets/images/horizontal.png"></button>
       <button (click)="updateType('pie');"class="button1D"><img width="30" src="assets/images/pie.png"></button>
       <button (click)="updateType('polarArea');"class="button1D"><img width="30" src="assets/images/polar.png"></button>
       <button (click)="updateType('doughnut');"class="button1D"><img width="30" src="assets/images/donut.png"></button>
       <!--Data 2D-->
-      <button (click)="updateType('radar');"class="button2D">radar</button>
-      <button (click)="updateType('line');"class="button2D">line</button>
-      <button (click)="updateType('bubble');"class="button2D">horizontalBar</button>
-       <!--Data 3D-->
-       <button (click)="addFire();"class="button2D">updateTEst</button>
+      <button (click)="updateType('line');"class="button1D"><img width="30" src="assets/images/line.png"></button>
+      <button (click)="updateType('radar');"class="button1D"><img width="30" src="assets/images/radar.png"></button>
+      <button (click)="updateType('bubble');"class="button1D"><img width="30" src="assets/images/bubble.png"></button>
    </div>
   </div>
-
+  
   <div  class="chartbox" style="width:100%;" >
     <canvas id="myChart" width="700" height="250" #mychart></canvas>
   </div>
   
   <div *ngIf="showMainContent" class="sheetbox" style="overflow:auto;">
 <!-- code pour file upload a utiliser -->
+<span class="btn btn-primary fileinput-button">
       <input type="file" #csvReader name="Upload CSV" id="csvReader" (onclick)="this.value = null" (change)="uploadListener($event)" accept=".csv"/>    
+      <span><i class="material-icons" style="color:white;">save_alt</i></span>
+  </span>
+
       <table class="minimalistBlack" *ngIf="records.length > 0">    
      ssdfsd
         <tbody>    
@@ -65,9 +71,9 @@
           <table class="table">
               <thead>
                   <tr >
-                      <th *ngFor="let country of countries;let position = index ">
+                      <th *ngFor="let country of countries;let position = index " class="headsheet">
 
-                            <input class="input" type="text" [(ngModel)] = "country"
+                            <input class="input headsheet" type="text" [(ngModel)] = "country"
                             (change)="updateChartFirebase('country', position, country )"
 
                           
@@ -78,9 +84,10 @@
               <tbody>
                   <tr>
                    
-                      <td *ngFor="let pop of population; let position = index" >
+                      <td *ngFor="let pop of population; let position = index" class="linesheet" >
                             <input class="input" type="text"   [(ngModel)] = "pop"
                             (change)="updateChartFirebase('population', position, pop  )"
+                            style="text-align: center;"
 
                           
                            value="{{pop}}">
@@ -95,4 +102,5 @@
       </div>
   
   </div>
- 
+</div>
+</div>

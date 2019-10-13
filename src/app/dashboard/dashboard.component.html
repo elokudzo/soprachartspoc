@@ -1,13 +1,40 @@
+<div class="user">
+  <div class="name">{{usertype}}</div>
 
-<button (click)="addSheet()" class="button add">Add Chart</button>
+  <div *ngIf="updateprof; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock><button (click)="updateprofil();" class="profil" ><img width="50"   src="assets/images/managor.png"></button></ng-template>
+    <ng-template #elseBlock><button (click)="updateprofil();" class="profil" ><img width="50"   src="assets/images/user.png"></button></ng-template>
 
-<div class="card card-1" *ngFor="let truc of list;" >
+</div>
+
+<div *ngIf="updateprof">
+  <button (click)="addSheet();" class="add"> + </button>
+  </div>
+
+<!--<div class="card card-1" *ngFor="let truc of list;" >
   <button (click)="removeSheet(truc.idFirefbase);" class="remove">X</button>
   <app-toto [chart]="truc"></app-toto>
-</div>
+</div>*/
 <!-- <div class="card card-1"></div>
 <div class="card card-1"></div>
 <div class="card card-1"></div> -->
+<div class="topheader"></div>
+<div class="centerbox">
+    <div class="test">
+ <div class="dashboard" *ngFor="let truc of list;" [ngStyle]="{'width.%':divWitdth}">
+  
+
+  
+      <button (click)="removeSheet(truc.idFirefbase);" class="remove" *ngIf="updateprof" >X</button>
+   
+
+
+     <app-toto [chart]="truc" class="apptoto"></app-toto>
+  
+   </div>
+  
+ </div>
+ </div>
 
 <div class="col-md-4 mx-auto">
 <!--

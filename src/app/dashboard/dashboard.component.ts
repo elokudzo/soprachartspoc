@@ -4,6 +4,7 @@ import {AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { DisplayedChart } from '../models/displayed-charts';
 import { stringify } from 'querystring';
+import { MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 
 
 @Component({
@@ -36,21 +37,24 @@ datatest ={
   type: 'doughnut',
   item:'init',
     data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      labels: ["Label1", "Label2", "Label3", "Label4", "Label5"],
       datasets: [
         {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
+          label: "Label New chart",
+          backgroundColor: ["#CF022B", "#F7A823","#7B7C7E","#41738C","#E14B0F"],
+          data: [247,526,73,384,433]
         }
       ]
     },
     options: {
       title: {
-        display: true,
-        text: 'Predicted world population (millions) in 2050'
+        display: false,
+        text: 'New chart'
+      },
+      legend:{
+        display:true,
+        position:'bottom'},
       }
-    }
 };
 
 // ---------
@@ -62,6 +66,7 @@ isDataAvailable:boolean = false;
   newdata:any;
   result:any;
   idfire: string;
+  usertype = "Team Member";
 
   constructor( private db:AngularFireDatabase){
   }
@@ -76,26 +81,7 @@ isDataAvailable:boolean = false;
   var idfireItem="TITRE "+this.size;
   this.idfire = this.generateID(10);
   this.datatest.item=idfireItem;
- this.newdata={
-  type: 'doughnut',
-  item: idfireItem,
-    data: {
-      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
-      datasets: [
-        {
-          label: "Population (millions)",
-          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-          data: [2478,5267,734,784,433]
-        }
-      ]
-    },
-    options: {
-      title: {
-        display: true,
-        text: 'Predicted world population (millions) in 2050'
-      }
-    }
-};
+ this.newdata=this.datatest;
 var newPostRef = this.db.database.ref('transactions/' ).push(this.newdata);
   this.list.push(
     {
@@ -112,7 +98,7 @@ var newPostRef = this.db.database.ref('transactions/' ).push(this.newdata);
 
  generateID(length) {
   var result           = '';
-  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var characters       = 'AAAAAAA';
   var charactersLength = characters.length;
   for ( var i = 0; i < length; i++ ) {
      result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -125,10 +111,18 @@ public removeSheet(x){
  var index=this.list.findIndex(item => item.idFirefbase == x)
   console.log("REMOVE LOG: "+x);
   this.list.splice(index,1);
-  this.ref.remove(x);
+  this.db.database.ref('transactions/' + x ).remove();
+  
 }
 // --------------
-  
+updateprof: Boolean = false;
+updateprofil(){
+    this.updateprof = this.updateprof ? false : true;
+    if(this.updateprof){
+    this.usertype="Manager";}else{
+      this.usertype="Team Member";
+    }
+}
   
   
   updatefire(typ){
