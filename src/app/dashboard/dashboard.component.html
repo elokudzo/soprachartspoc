@@ -13,15 +13,15 @@
 <div class="topheader"></div>
 <div class="centerbox">
     <div class="test">
- <div class="dashboard" *ngFor="let truc of list;" [ngStyle]="{'width.%':divWitdth}">
+ <div class="dashboard" *ngFor="let chartData of list;" [ngStyle]="{'width.%':divWitdth}">
   
 
   
-      <button (click)="removeSheet(truc.idFirefbase);" class="remove" *ngIf="updateprof" >X</button>
+      <button (click)="removeSheet(chartData.idFirefbase);" class="remove" *ngIf="updateprof" >X</button>
    
 
 
-     <app-chart [chart]="truc" class="appchart"></app-chart>
+     <app-chart [chart]="chartData" class="appchart"></app-chart>
   
    </div>
   
