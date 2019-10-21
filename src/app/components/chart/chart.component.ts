@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit, NgZone } from '@angular/core';
 import { DisplayedChart } from 'src/app/models/displayed-charts';
-import { TotoService } from 'src/app/services/toto.service';
+import { ChartService } from 'src/app/services/chart.service';
 import { DashboardComponent } from 'src/app/dashboard/dashboard.component';
 import {Chart} from 'chart.js';
 import {AngularFireDatabase, AngularFireList, snapshotChanges } from 'angularfire2/database';
@@ -9,13 +9,13 @@ import { isString } from 'util';
 
 
 @Component({
-  selector: 'app-toto',
-  templateUrl: './toto.component.html',
-  styleUrls: ['./toto.component.css']
+  selector: 'app-chart',
+  templateUrl: './chart.component.html',
+  styleUrls: ['./chart.component.css']
 })
 
 
-export class TotoComponent implements OnInit {
+export class ChartComponent implements OnInit {
   
   public chartData:Chart.ChartConfiguration;
   myChart:Chart;

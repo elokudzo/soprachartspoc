@@ -11,17 +11,8 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import {MatIconModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { TotoComponent } from './components/toto/toto.component';
+import { ChartComponent } from './components/chart/chart.component';
 
-// var firebaseConfig = {
-//   apiKey: "AIzaSyAD4NC14qXM4VkpDGujgP4pr3RxAGSc0xk",
-//   authDomain: "sopracharts.firebaseapp.com",
-//   databaseURL: "https://sopracharts.firebaseio.com",
-//   projectId: "sopracharts",
-//   storageBucket: "sopracharts.appspot.com",
-//   messagingSenderId: "965190972008",
-//   appId: "1:965190972008:web:fcabbb620ebb40a4"
-// };
 var firebaseConfig = {
   apiKey: "AIzaSyBbr_GzGPBBr-e2OrdfPoni5LLCztKm84I",
   authDomain: "soprasteriacharts.firebaseapp.com",
@@ -47,7 +38,7 @@ var firebaseConfig = {
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    TotoComponent
+    ChartComponent
   ],
   imports: [
     BrowserModule,
