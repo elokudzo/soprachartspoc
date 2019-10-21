@@ -170,16 +170,8 @@ export class TotoComponent implements OnInit {
   
   fileReset(event) { 
     event.srcElement.value = null; 
- //   document.getElementById("").value = "";
-   // this.csvReader.nativeElement.value = "";  
-   // this.records = [];  
+
   } 
-//end du code file upload
-
-
-  //-------------------------------
-
-  //--------------------------- 
   
   ngAfterViewInit() {
 
@@ -198,12 +190,12 @@ export class TotoComponent implements OnInit {
 var self = this;
     this.db.database.ref('transactions/'+ this.chart.idFirefbase ).on('child_changed',function(snapshot){
 
-  
+    
       self.ngZone.run(() => {
 
         if(isString(snapshot.val())){
-          //self.chart.title = snapshot.val();
-          console.log("self.chart.title = snapshot.val(); runned  here");
+          self.chart.title = snapshot.val();
+         // console.log("self.chart.title = snapshot.val(); runned  here");
         }
         else {
           self.myChart.data.labels = snapshot.val().labels;
@@ -216,81 +208,14 @@ var self = this;
       });
 
     });
-    
-    /**
-     * la partie commentee ci-dessous va servir a mettre a jour continuellement le chart suivant le changement
-     * de la base de donnee firebase..pas encore terminee, a tester et essayer
-     */
-  //  this.ref = this.db.list('transactions', ref=> ref.orderByChild('item').equalTo(this.chartData["item"]));
- 
-  //  this.ref.valueChanges().subscribe(result => {
-  //   console.log("result is ");
-  //   console.log(result);
-   
-
-  //     this.mychartData = result[0].data;
-  //     console.log("my chart data is");
-  //       console.log(this.mychartData);
-  //     this.myChart.data.datasets.forEach((dataset) => {
-     
-  //      dataset.data =  this.mychartData;
-  //       console.log(dataset.data);
-  //     });
-    //  this.myChart.update();
-    
-   
-
-
-//     this.mychart.update();
-// console.log("0 is ");
-// console.log(result[0].data);
-// console.log("inside toto result is");
-// console.log(result);
-
-  //   this.mychartData = result;
-    //  console.log("mycahartdata");
-    //  console.log(this.mychartData);
-    // this.mychartData = this.getUpdatedValues();
-
-// this.mychart.data.datasets.forEach((dataset) => {
-//   dataset.data = this.mychartData;
-// });
-// this.mychart.update();
-
-
-
- // });
+  
     
   }
 
 
   getUpdatedValues() {
-    // let reportByMonth = {
-    //   0: null,
-    //   1: null,
-    //   2: null,
-    //   3: null
-    // };
-    //LOG The JSON Stored in the First chartData level
     console.log("JSON IN CHART DATA TOTOOOOOOO : "+JSON.stringify(this.mychartData[0]));
-    //---
-
-    // for (let trans of this.mychartData) {
-    //   if (reportByMonth[trans.month]) {
-    //     if (trans.expense) {
-    //       reportByMonth[trans.month] -= +trans.value;
-    //     } else {
-    //       reportByMonth[trans.month] += +trans.value;
-    //     }
-    //   } else {
-    //     if (trans.expense) {
-    //       reportByMonth[trans.month] = 0 - +trans.value;
-    //     } else {
-    //       reportByMonth[trans.month] = +trans.value;
-    //     }
-    //   }
-    // }
-//    return Object.keys(reportByMonth).map(a => reportByMonth[a]);
+  
   }
 
   updateChartFirebase(typedata, position, value){

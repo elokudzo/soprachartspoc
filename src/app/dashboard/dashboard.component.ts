@@ -79,15 +79,37 @@ isDataAvailable:boolean = false;
   //console.log("ChartData[0] : " +this.chartData[1]);
 
   var idfireItem="TITRE "+this.size;
-  this.idfire = this.generateID(10);
-  this.datatest.item=idfireItem;
- this.newdata=this.datatest;
+ // this.idfire = this.generateID(10);
+  //this.datatest.item=idfireItem;
+ this.newdata={
+  type: 'doughnut',
+  item: idfireItem,
+    data: {
+      labels: ["Label1", "Label2", "Label3", "Label4", "Label5"],
+      datasets: [
+        {
+          label: "Label New chart",
+          backgroundColor: ["#CF022B", "#F7A823","#7B7C7E","#41738C","#E14B0F"],
+          data: [247,526,73,384,433]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: false,
+        text: 'New chart'
+      },
+      legend:{
+        display:true,
+        position:'bottom'},
+      }
+};
 var newPostRef = this.db.database.ref('transactions/' ).push(this.newdata);
   this.list.push(
     {
       firebaseUri: "aze",
       idFirefbase: newPostRef.key,
-      title: "Title "+ this.size,
+      title: "TITRE "+ this.size,
       type: "bar",
       data:this.newdata,
       labels:Object.keys(this.months).map(a => this.months[a].name),
