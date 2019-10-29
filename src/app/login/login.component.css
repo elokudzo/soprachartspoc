@@ -42,7 +42,7 @@
     width: 100%;
     margin-left:auto;
     margin-right:auto;
-    height:300px;
+    height:500px;
     border-radius:0 0 60% 40% / 0 0 50% 20%
  
 }
@@ -54,16 +54,31 @@
     margin:0;
 }
 .form{
+
     display:inline-block;
+
     width: 90%;
+
+    margin-top:150px;
+
 }
 
+ 
+
 .orange{
+
     display: flex;
+
     background: #EF7D00 ;
+
     margin-left:auto;
+
     margin-right:auto;
+
     border-radius: 0 0 60% 40% / 0 0 30% 10%;
-    height:300px;
+
+    height:500px;
+
     width: 60%;
+
 }

@@ -33,29 +33,325 @@ export class DashboardComponent implements OnInit ,AfterViewInit {
     month:0
   }
 ;
+
 datatest ={
+
   type: 'doughnut',
-  item:'init',
+
+  item:"Hello, I'm new",
+
     data: {
+
       labels: ["Label1", "Label2", "Label3", "Label4", "Label5"],
+
       datasets: [
+
         {
+
           label: "Label New chart",
-          backgroundColor: ["#CF022B", "#F7A823","#7B7C7E","#41738C","#E14B0F"],
+
+          backgroundColor: ["#CF022B", "#F7A823","#7B7C7E","#007ac2","#E14B0F"],
+
           data: [247,526,73,384,433]
+
         }
+
       ]
+
     },
+
     options: {
+
       title: {
+
         display: false,
+
         text: 'New chart'
+
       },
+
       legend:{
+
         display:true,
+
         position:'bottom'},
+
       }
+
 };
+
+/*datatest= { type: 'bubble',
+
+data: {
+
+  labels: "User Story",
+
+  datasets: [
+
+    {
+
+      label: ["US-170"],
+
+      backgroundColor: "#f2a222",
+
+      borderColor: "#f2a222",
+
+      data: [{
+
+        x: 21,
+
+        y: 5.2,
+
+        r: 15
+
+      }]
+
+    }, {
+
+      label: ["US-189"],
+
+      backgroundColor: "#f23022",
+
+      borderColor: "#f23022",
+
+      data: [{
+
+        x:35,
+
+        y: 7.5,
+
+        r: 10
+
+      }]
+
+    }, {
+
+      label: ["US-230"],
+
+      backgroundColor: "#ac4fd1",
+
+      borderColor: "#ac4fd1",
+
+      data: [{
+
+        x: 10,
+
+        y: 3,
+
+        r: 25
+
+      }]
+
+    }, 
+
+    {
+
+      label: ["US-236"],
+
+      backgroundColor:"#2828b5",
+
+      data: [{
+
+        x: 17,
+
+        y: 6,
+
+        r: 40
+
+      }]
+
+    },
+
+    {
+
+      label: ["US-202"],
+
+      backgroundColor: "#f23022",
+
+      borderColor: "#f23022",
+
+      data: [{
+
+        x: 40,
+
+        y: 2,
+
+        r: 25
+
+      }]
+
+    },
+
+    {
+
+      label: ["US-195"],
+
+      backgroundColor: "#7b777d",
+
+      borderColor: "#7b777d",
+
+      data: [{
+
+        x: 45,
+
+        y: 7,
+
+        r: 5
+
+      }]
+
+    }
+
+  ]
+
+},
+
+options: {
+
+ 
+
+  legend: {
+
+    position: "bottom",
+
+  },
+
+ 
+
+  title: {
+
+    display: false,
+
+    text: "Bubble chart",
+
+  }, scales: {
+
+    yAxes: [{ 
+
+      scaleLabel: {
+
+        display: true,
+
+        labelString: "Risque"
+
+      },
+
+      ticks: {
+
+        beginAtZero: true
+
+    }
+
+    }],
+
+    xAxes: [{ 
+
+      scaleLabel: {
+
+        display: true,
+
+        labelString: "Valeur"
+
+      },
+
+      ticks: {
+
+        beginAtZero: true
+
+    }
+
+    }]
+
+  }
+
+}
+
+};*/
+
+/*datatest={
+
+  type: 'radar',
+
+  item:'"Hi, What's up?"',
+
+data: {
+
+  labels: ["UI/Display", "API-Connecteur", "API-Service", "Process", "Security"],
+
+  datasets: [
+
+    {
+
+      label: "Sprint 14",
+
+      pointBorderColor: "#f2a222",
+
+      borderColor:"#f2a222",
+
+      data: [10,7,3,8,6],
+
+      fill: false,
+
+    }, {
+
+      label: "Sprint 15",
+
+      pointBorderColor: "#f23022",
+
+      borderColor:"#f23022",
+
+      data: [12,6,4,9,4],
+
+      fill: false,
+
+    }
+
+  ]
+
+},
+
+options: {
+
+  title: {
+
+    display: false,
+
+    text: 'Population growth (millions)'
+
+  },
+
+  legend: {
+
+    position: "bottom",
+
+  }
+
+}
+
+};*/
+// datatest ={
+//   type: 'doughnut',
+//   item:'init',
+//     data: {
+//       labels: ["Label1", "Label2", "Label3", "Label4", "Label5"],
+//       datasets: [
+//         {
+//           label: "Label New chart",
+//           backgroundColor: ["#CF022B", "#F7A823","#7B7C7E","#41738C","#E14B0F"],
+//           data: [247,526,73,384,433]
+//         }
+//       ]
+//     },
+//     options: {
+//       title: {
+//         display: false,
+//         text: 'New chart'
+//       },
+//       legend:{
+//         display:true,
+//         position:'bottom'},
+//       }
+// };
 
 // ---------
 public list:  DisplayedChart[]=[];
@@ -89,7 +385,7 @@ isDataAvailable:boolean = false;
       datasets: [
         {
           label: "Label New chart",
-          backgroundColor: ["#CF022B", "#F7A823","#7B7C7E","#41738C","#E14B0F"],
+          backgroundColor:["#CF022B", "#F7A823","#7B7C7E","#007ac2","#E14B0F"],
           data: [247,526,73,384,433]
         }
       ]

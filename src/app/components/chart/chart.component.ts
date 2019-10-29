@@ -43,8 +43,9 @@ export class ChartComponent implements OnInit {
  }
 
 
-  @Input() chart : DisplayedChart
-  @Input() ref :AngularFireList<any>
+  @Input() chart : DisplayedChart;
+  @Input() ref :AngularFireList<any>;
+  @Input() updateprof:any;
 
   ngOnInit() {}
   
@@ -91,11 +92,17 @@ export class ChartComponent implements OnInit {
         let csvData = reader.result;
         
         let csvRecordsArray = (<string>csvData).split(/\r\n|\n/);  
+        // csvRecordsArray = csvRecordsArray.pop();
+        console.log(csvRecordsArray);
+      
   
         let csvtitle = this.getHeaderArray(csvRecordsArray); 
       
         let csvValue = this.getDataRecordsArrayFromCSVFile(csvRecordsArray, csvtitle.length);  
 
+
+        console.log(csvtitle);
+        console.log(csvValue);
         this.countries = csvtitle;
         this.population = csvValue;
      
@@ -194,7 +201,7 @@ var self = this;
       self.ngZone.run(() => {
 
         if(isString(snapshot.val())){
-          self.chart.title = snapshot.val();
+        //  self.chart.title = snapshot.val();
          // console.log("self.chart.title = snapshot.val(); runned  here");
         }
         else {
